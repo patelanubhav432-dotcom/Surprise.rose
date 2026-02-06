@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day Anjali 🌹</title>
+    <style>
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #000; color: white; text-align: center; overflow: hidden; }
+        .bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+               background: url("https://uploads.onecompiler.io/44cq47d59/44cu4rxd9/1000143569.jpg") center/cover no-repeat; 
+               filter: blur(6px) brightness(0.4); z-index: -1; }
+        
+        #startLayer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1a0000; 
+                      display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; }
+        .enter-btn { padding: 20px 50px; font-size: 24px; background: #e20303; border: none; border-radius: 50px; 
+                    color: white; font-weight: bold; cursor: pointer; box-shadow: 0 0 30px #ff0000; animation: glow 2s infinite; }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 20px #ff0000; } 50% { box-shadow: 0 0 40px #ff4d4d; } }
+
+        .box { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; padding: 20px; }
+        h1 { font-size: 2.5rem; text-shadow: 0 0 20px #ff0000; color: #fff; }
+        .poem { font-size: 1.4rem; line-height: 1.8; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; border: 1px solid #ff4d4d; margin: 20px; box-shadow: 0 0 15px rgba(255,0,0,0.3); font-weight: 500; }
+        
+        .btn-group { display: flex; gap: 20px; height: 120px; align-items: center; justify-content: center; }
+        button { padding: 15px 45px; font-size: 22px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        #yes { background: #e20303; color: white; box-shadow: 0 5px 15px rgba(226, 3, 3, 0.4); z-index: 100; }
+        #no { background: white; color: #8b0000; position: relative; }
+
+        .final { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none;
+                 background: url("https://uploads.onecompiler.io/44cq47d59/44cu4rxd9/1000143569.jpg") center/cover no-repeat; 
+                 justify-content: center; align-items: center; flex-direction: column; z-index: 5000; }
+        .emoji { position: absolute; animation: floatUp 4s linear infinite; font-size: 30px; pointer-events: none; }
+        @keyframes floatUp { 0% { transform: translateY(110vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div id="startLayer">
+    <h1 style="margin-bottom: 30px; font-family: 'Georgia', serif;">A Rose for Anjali... 🌹</h1>
+    <button class="enter-btn" onclick="startSurprise()">Accept Rose 🌹</button>
+</div>
+
+<div class="bg"></div>
+
+<div class="box">
+    <h1>Happy Rose Day, Anjali! 🌹</h1>
+    <div class="poem">
+        "Phoolon ki hasi aapke naam ho,<br>
+        Dosti ka ye rishta bemisaal ho." ✨
+    </div>
+    <p style="color: #ffcccc; font-size: 1.1rem;">Accept this rose? 🌹</p>
+    <div class="btn-group">
+        <button id="yes" onclick="celebrate()">YES! 🌹</button>
+        <button id="no" onmouseover="dodgeNo()" onclick="dodgeNo()">No 🥀</button>
+    </div>
+</div>
+
+<div class="final" id="final">
+    <div style="position:absolute; width:100%; height:100%; background:rgba(0,0,0,0.65);"></div>
+    <h1 style="z-index:10; font-size: 3.5rem; font-family: cursive; color: #ff4d4d;">Happy Rose Day Anjali! ❤️</h1>
+    <h2 style="z-index:10; color: gold;">Keep Smiling ✨</h2>
+</div>
+
+<script>
+    function startSurprise() {
+        document.getElementById("startLayer").style.display = "none";
+    }
+
+    const funnyNoTexts = [
+        "No ❌", 
+        "Dosti ka rose hai! 😂", 
+        "Kyun mana kiya? 🥺", 
+        "Anjali... pakka? 🌹", 
+        "Wrong way ⬅️", 
+        "Itna gussa? 🥀", 
+        "Try again! 😜", 
+        "Sirf 'YES' dabao! ❤️"
+    ];
+
+    let growth = 0;
+    let textIndex = 0;
+
+    function dodgeNo() {
+        const noBtn = document.getElementById("no");
+        const yesBtn = document.getElementById("yes");
+        
+        textIndex = (textIndex + 1) % funnyNoTexts.length;
+        noBtn.innerText = funnyNoTexts[textIndex];
+
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 150);
+        noBtn.style.position = "fixed";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        growth += 0.35;
+        yesBtn.style.transform = `scale(${1 + growth})`;
+    }
+
+    function celebrate() {
+        document.getElementById("final").style.display = "flex";
+        setInterval(() => {
+            const e = document.createElement("div");
+            e.className = "emoji";
+            const roseEmojis = ['🌹','❤️','✨','💖','🌸'];
+            e.innerText = roseEmojis[Math.floor(Math.random() * roseEmojis.length)];
+            e.style.left = Math.random() * 100 + "vw";
+            e.style.fontSize = Math.random() * 20 + 25 + "px";
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 4000);
+        }, 150);
+    }
+</script>
+</body>
+</html>
